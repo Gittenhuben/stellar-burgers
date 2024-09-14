@@ -1,12 +1,9 @@
 import { FC, useState } from 'react';
-import {
-  Input,
-  Button,
-  PasswordInput
-} from '@zlden/react-developer-burger-ui-components';
+import { Input, Button, PasswordInput } from '@zlden/react-developer-burger-ui-components';
 import styles from '../common.module.css';
 import { Link } from 'react-router-dom';
 import { LoginUIProps } from './type';
+
 
 export const LoginUI: FC<LoginUIProps> = ({
   email,
@@ -37,7 +34,7 @@ export const LoginUI: FC<LoginUIProps> = ({
               size='default'
             />
           </div>
-          <div className='pb-6'>
+          <div className={`pb-6 ${styles.passwordInput}`}>
             <PasswordInput
               onChange={(e) => setPassword(e.target.value)}
               value={password}
@@ -58,13 +55,19 @@ export const LoginUI: FC<LoginUIProps> = ({
       </form>
       <div className={`pb-4 ${styles.question} text text_type_main-default`}>
         Вы - новый пользователь?
-        <Link to='/register' className={`pl-2 ${styles.link}`}>
+        <Link
+          to='/register'
+          className={`pl-2 ${styles.link}`}
+        >
           Зарегистрироваться
         </Link>
       </div>
       <div className={`${styles.question} text text_type_main-default pb-6`}>
         Забыли пароль?
-        <Link to={'/forgot-password'} className={`pl-2 ${styles.link}`}>
+        <Link
+          to={'/forgot-password'}
+          className={`pl-2 ${styles.link}`}
+        >
           Восстановить пароль
         </Link>
       </div>

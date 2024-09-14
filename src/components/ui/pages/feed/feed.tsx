@@ -1,10 +1,9 @@
 import { FC, memo } from 'react';
-
 import styles from './feed.module.css';
-
 import { FeedUIProps } from './type';
 import { OrdersList, FeedInfo } from '@components';
 import { RefreshButton } from '@zlden/react-developer-burger-ui-components';
+
 
 export const FeedUI: FC<FeedUIProps> = memo(({ orders, handleGetFeeds }) => (
   <main className={styles.containerMain}>
@@ -15,7 +14,7 @@ export const FeedUI: FC<FeedUIProps> = memo(({ orders, handleGetFeeds }) => (
       <RefreshButton
         text='Обновить'
         onClick={handleGetFeeds}
-        extraClass={'ml-30'}
+        extraClass={`ml-30 ${styles.buttonRefreshFeed}`}
       />
     </div>
     <div className={styles.main}>

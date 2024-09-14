@@ -1,6 +1,8 @@
 .header {
   background-color: var(--background);
+  position: sticky;
 }
+
 .menu {
   display: flex;
   align-items: center;
@@ -18,9 +20,11 @@
   display: flex;
   text-decoration: none;
   color: var(--text-inactive-color);
+  transition: var(--common-transition);
 }
 
-.link_active {
+.link_active,
+.link:not(.link_active):hover {
   color: var(--text-primary-color);
 }
 
@@ -34,4 +38,8 @@
   display: flex;
   align-items: center;
   margin: 0 auto;
+}
+
+.icon {
+  fill: currentColor;
 }

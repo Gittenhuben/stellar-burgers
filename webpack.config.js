@@ -32,7 +32,9 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              modules: true
+              modules: {
+                localIdentName: '[name]__[local]__[hash:base64:5]'
+              }
             }
           }
         ]
@@ -48,11 +50,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new ESLintPlugin({
-      extensions: ['.js', '.jsx', '.ts', '.tsx']
-    }),
     new HtmlWebpackPlugin({
-      template: './public/index.html'
+      template: './public/index.html',
+      favicon: './public/favicon.ico',
+      inject: 'body'
     }),
     new Dotenv()
   ],
@@ -83,12 +84,17 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   devServer: {
     static: path.join(__dirname, './dist'),
     compress: true,
     historyApiFallback: true,
     port: 4000
+  },
+  performance: {
+    maxAssetSize: 1048576,
+    maxEntrypointSize: 1048576
   }
 };

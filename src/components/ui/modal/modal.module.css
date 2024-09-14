@@ -4,6 +4,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 9999;
+  min-height: 444px;
+  min-width: 640px;
   margin: auto;
   padding: 40px 40px 60px;
   background-color: #1c1c21;

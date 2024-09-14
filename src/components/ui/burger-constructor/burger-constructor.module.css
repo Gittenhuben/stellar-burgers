@@ -4,11 +4,10 @@
   display: flex;
   flex-direction: column;
   padding-bottom: 20px;
+  max-height: calc(100vh - 244px);
 }
 
 .elements {
-  min-height: 100px;
-
   overflow-y: scroll;
   list-style-type: none;
   margin: 0;
@@ -73,4 +72,8 @@
   flex-direction: column;
   width: 100%;
   max-width: 536px;
+}
+
+:global(.constructor-element__image) {
+  min-width: 80px;
 }

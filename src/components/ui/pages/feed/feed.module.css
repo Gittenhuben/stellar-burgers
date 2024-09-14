@@ -21,6 +21,7 @@
   height: 100%;
   width: 1240px;
   overflow: hidden;
+  max-height: calc(100vh - 188px);
 }
 
 .columnOrders {
@@ -31,4 +32,14 @@
   overflow-y: auto;
   overflow-x: hidden;
   width: 580px;
+}
+
+.buttonRefreshFeed {
+  transition: box-shadow 2s;
+  border-radius: 16px;
+}
+
+.buttonRefreshFeed:active {
+  box-shadow: 0px 0px 16px 8px rgba(101, 101, 255, 0.25), 0px 0px 8px 8px rgba(101, 101, 255, 0.25);
+  transition: box-shadow 0.1s;
 }

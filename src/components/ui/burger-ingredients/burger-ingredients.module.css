@@ -17,6 +17,7 @@ p {
 
 .content {
   overflow-y: scroll;
+  max-height: calc(100vh - 244px);
 }
 
 .menu {

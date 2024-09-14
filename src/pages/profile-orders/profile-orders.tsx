@@ -1,10 +1,16 @@
 import { ProfileOrdersUI } from '@ui-pages';
-import { TOrder } from '@utils-types';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import { AppDispatch, useSelector, useDispatch } from '../../services/store';
+import { getOrdersPersonalThunk } from '../../services/slices/orders-personal-slice';
 
 export const ProfileOrders: FC = () => {
-  /** TODO: взять переменную из стора */
-  const orders: TOrder[] = [];
+  
+  const orders = useSelector((store) => store.ordersPersonalSlice.orders);
+
+  const dispatch: AppDispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getOrdersPersonalThunk());
+  }, []);
 
   return <ProfileOrdersUI orders={orders} />;
 };

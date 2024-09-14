@@ -1,12 +1,9 @@
-import { FC, useState } from 'react';
-import {
-  Input,
-  Button,
-  PasswordInput
-} from '@zlden/react-developer-burger-ui-components';
+import { FC } from 'react';
+import { Input, Button, PasswordInput } from '@zlden/react-developer-burger-ui-components';
 import styles from '../common.module.css';
 import { Link } from 'react-router-dom';
 import { RegisterUIProps } from './type';
+
 
 export const RegisterUI: FC<RegisterUIProps> = ({
   errorText,
@@ -16,7 +13,9 @@ export const RegisterUI: FC<RegisterUIProps> = ({
   password,
   setPassword,
   userName,
-  setUserName
+  setUserName,
+  formValid,
+  setFormValid
 }) => (
   <main className={styles.container}>
     <div className={`pt-6 ${styles.wrapCenter}`}>
@@ -51,15 +50,16 @@ export const RegisterUI: FC<RegisterUIProps> = ({
               size={'default'}
             />
           </div>
-          <div className='pb-6'>
+          <div className={`pb-6 ${styles.passwordInput}`}>
             <PasswordInput
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {setFormValid(true); setPassword(e.target.value)}}
               value={password}
               name='password'
+              checkValid={isValid => setFormValid(isValid)}
             />
           </div>
           <div className={`pb-6 ${styles.button}`}>
-            <Button type='primary' size='medium' htmlType='submit'>
+            <Button type='primary' size='medium' htmlType='submit' disabled={!formValid}>
               Зарегистрироваться
             </Button>
           </div>
@@ -72,7 +72,10 @@ export const RegisterUI: FC<RegisterUIProps> = ({
       </form>
       <div className={`${styles.question} text text_type_main-default pb-6`}>
         Уже зарегистрированы?
-        <Link to='/login' className={`pl-2 ${styles.link}`}>
+        <Link
+          to='/login'
+          className={`pl-2 ${styles.link}`}
+        >
           Войти
         </Link>
       </div>

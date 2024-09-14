@@ -4,6 +4,10 @@
   justify-content: space-between;
 }
 
+.container:nth-child(odd) {
+  margin-left: 2px;
+}
+
 .article {
   position: relative;
   display: flex;
@@ -25,6 +29,17 @@
 }
 
 .addButton {
-  width: 260px;
+  width: 228px;
+  margin-inline: 16px;
   justify-content: center;
+  border-radius: 16px;
+}
+
+.addButton:hover {
+  box-shadow: 0px 0px 16px 8px rgba(51, 51, 255, 0.25), 0px 0px 8px 8px rgba(51, 51, 255, 0.25);
+}
+
+.addButton:active {
+  transition: box-shadow 0.1s;
+  box-shadow: 0px 0px 16px 8px rgba(101, 101, 255, 0.25), 0px 0px 8px 8px rgba(101, 101, 255, 0.25);
 }

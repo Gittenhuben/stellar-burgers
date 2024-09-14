@@ -46,3 +46,7 @@
   color: #ff0000;
   text-align: center;
 }
+
+.passwordInput {
+  min-height: 90px;
+}
