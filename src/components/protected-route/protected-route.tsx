@@ -36,7 +36,8 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({ loggedPrevent = false,
 
   if (!isLoading && (loggedPrevent && user=='' || !loggedPrevent && user!='')) {
     return (<>{children}</>);
-  } else {
-    return (<Preloader />);
-  }
+  } 
+  
+  return (<Preloader />);
+  
 };

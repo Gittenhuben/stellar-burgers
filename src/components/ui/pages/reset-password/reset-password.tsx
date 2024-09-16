@@ -29,6 +29,7 @@ export const ResetPasswordUI: FC<ResetPasswordUIProps> = ({
             value={password}
             name='password'
             checkValid={isValid => setFormValid(isValid)}
+            autoComplete='new-password'
           />
         </div>
         <div className='pb-6'>

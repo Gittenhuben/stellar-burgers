@@ -29,6 +29,7 @@ export const ForgotPasswordUI: FC<PageUIProps> = ({
             error={false}
             errorText=''
             size='default'
+            autoComplete='email'
           />
         </div>
         <div className={`pb-6 ${styles.button}`}>
