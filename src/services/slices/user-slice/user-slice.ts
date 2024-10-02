@@ -1,14 +1,12 @@
-import { getUserApi, updateUserApi, TRegisterData } from '../../utils/burger-api';
+import { getUserApi, updateUserApi, TRegisterData } from '../../../utils/burger-api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getCookie } from '../../utils/cookie';
 
 
 export const getUserThunk = createAsyncThunk(
   'getUserThunk',
   async () => {
     try {
-      if (getCookie('accessToken')) return await getUserApi();
-      return await Promise.reject('Нет куки');
+      return await getUserApi();
     } catch (err) {
       console.log('Ошибка загрузки данных пользователя с сервера');
       return await Promise.reject(`Ошибка: ${err}`);
@@ -34,7 +32,6 @@ export interface userState {
   isLoadingGetUser: boolean;
   isLoadingSetUser: boolean;
   errorTextSetUser: string;
-  locationWanted: string;
 }
 
 const initialState: userState = {
@@ -43,7 +40,6 @@ const initialState: userState = {
   isLoadingGetUser: true,
   isLoadingSetUser: true,
   errorTextSetUser: '',
-  locationWanted: ''
 }
 
 export const userSlice = createSlice({
@@ -54,9 +50,11 @@ export const userSlice = createSlice({
       state.userName = action.payload.userName;
       state.email = action.payload.email;
     },
-    setLocationWanted: (state, action) => {
-      state.locationWanted = action.payload.locationWanted;
-    },
+    reset: (state) => {
+      state.userName = '';
+      state.email = '';
+      state.isLoadingGetUser = false;
+    }
   },
   
   extraReducers: (builder) => {
@@ -81,12 +79,13 @@ export const userSlice = createSlice({
     });
     builder.addCase(setUserThunk.rejected, (state, action) => {
       state.isLoadingSetUser = false;
-      if (action.error.message) {
+      if (action.error.message && action.error.message != 'Ошибка: undefined') {
         state.errorTextSetUser = action.error.message;
+        console.log(action.error.message);
       } else {
-        state.errorTextSetUser = 'Ошибка изменения данных пользователя'
+        state.errorTextSetUser = 'Ошибка изменения данных пользователя';
+        console.log('Ошибка изменения данных пользователя');
       }
-      console.log(action.error.message);
     });
     builder.addCase(setUserThunk.fulfilled, (state, action) => {
       state.userName = action.payload.user.name;

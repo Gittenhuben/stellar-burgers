@@ -37,6 +37,7 @@ export const RegisterUI: FC<RegisterUIProps> = ({
               errorText=''
               size='default'
               autoComplete='name'
+              required={true}
             />
           </div>
           <div className='pb-6'>

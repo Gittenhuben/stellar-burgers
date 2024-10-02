@@ -1,7 +1,7 @@
 import { ProfileOrdersUI } from '@ui-pages';
 import { FC, useEffect } from 'react';
 import { AppDispatch, useSelector, useDispatch } from '../../services/store';
-import { getOrdersPersonalThunk } from '../../services/slices/orders-personal-slice';
+import { getOrdersPersonalThunk } from '../../services/slices/orders-personal-slice/orders-personal-slice';
 
 export const ProfileOrders: FC = () => {
   

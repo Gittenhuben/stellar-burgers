@@ -18,8 +18,7 @@ export const ProfileMenu: FC = () => {
         localStorage.removeItem('refreshToken');
         deleteCookie('accessToken');
         dispatch({type: 'user/setLocalUser', payload: {userName: '', email: ''} });
-        dispatch({type: 'user/setLocationWanted', payload: {locationWanted: ''} });
-        navigate('/login');
+        navigate('/login', {state: {from: ''}});
       })
       .catch(() => {
         console.log('Ошибка логаута');

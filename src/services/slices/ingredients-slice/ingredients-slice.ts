@@ -1,6 +1,6 @@
-import { getIngredientsApi } from '../../utils/burger-api';
+import { getIngredientsApi } from '../../../utils/burger-api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { TIngredient } from '../../utils/types';
+import { TIngredient } from '../../../utils/types';
 
 
 export const getIngredientsThunk = createAsyncThunk(
@@ -9,7 +9,7 @@ export const getIngredientsThunk = createAsyncThunk(
     try {
       return await getIngredientsApi();
     } catch (err) {
-      console.log('Ошибка загрузки данных об ингридиентах с сервера');
+      console.log('Ошибка загрузки данных об ингредиентах с сервера');
       return await Promise.reject(`Ошибка: ${err}`);
     }
   }
@@ -32,6 +32,7 @@ export const ingredientsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getIngredientsThunk.pending, (state) => {
+      state.isLoading = true;
     });
     builder.addCase(getIngredientsThunk.rejected, (state, action) => {
       state.isLoading = false;

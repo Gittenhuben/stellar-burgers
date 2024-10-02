@@ -7,8 +7,9 @@ import { AppHeader, ProtectedRoute, Modal, IngredientDetails, OrderInfo } from '
 import { useLocation } from 'react-router';
 import { useEffect } from 'react';
 import { AppDispatch, useDispatch } from '../../services/store';
-import { getIngredientsThunk } from '../../services/slices/ingredients-slice';
-import { getUserThunk } from '../../services/slices/user-slice';
+import { getIngredientsThunk } from '../../services/slices/ingredients-slice/ingredients-slice';
+import { getUserThunk } from '../../services/slices/user-slice/user-slice';
+import { getCookie } from '../../utils/cookie';
 
 
 export default function App() {
@@ -23,7 +24,13 @@ export default function App() {
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     dispatch(getIngredientsThunk());
-    dispatch(getUserThunk());
+
+    if (getCookie('accessToken')) {
+      dispatch(getUserThunk());
+    } else {
+      dispatch({type: 'user/reset'});
+      console.log('Нет куки');
+    }
   }, []);
 
   return (

@@ -3,7 +3,7 @@ import { LoginUI } from '@ui-pages';
 import { loginUserApi } from '@api';
 import { setCookie } from '../../utils/cookie';
 import { useSelector, useDispatch } from '../../services/store';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 export const Login: FC = () => {
@@ -12,7 +12,7 @@ export const Login: FC = () => {
   const [error, setError] = useState<Error | null>(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const locationWanted = useSelector((store) => store.userSlice.locationWanted);
+  const location = useLocation();
   
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -24,8 +24,8 @@ export const Login: FC = () => {
         setCookie('accessToken', data.accessToken);
         dispatch({type: 'user/setLocalUser', payload: {userName: data.user.name, email: data.user.email} });
         setPassword('');
-        if (locationWanted) {
-          navigate(locationWanted, {replace: true});
+        if (location.state?.from) {
+          navigate(location.state.from, {replace: true});
         } else {
           navigate('/', {replace: true});
         }

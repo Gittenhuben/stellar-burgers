@@ -4,7 +4,7 @@ import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useLocation } from 'react-router-dom';
 import { AppDispatch, useSelector, useDispatch } from '../../services/store';
-import { getOrdersSingleThunk } from '../../services/slices/orders-single-slice';
+import { getOrdersSingleThunk } from '../../services/slices/orders-single-slice/orders-single-slice';
 
 export const OrderInfo: FC = () => {
   const location = useLocation();

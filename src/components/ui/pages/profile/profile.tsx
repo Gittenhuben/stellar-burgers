@@ -34,6 +34,7 @@ export const ProfileUI: FC<ProfileUIProps> = ({
             size={'default'}
             icon={'EditIcon'}
             autoComplete='name'
+            required={true}
           />
         </div>
         <div className='pb-6'>
