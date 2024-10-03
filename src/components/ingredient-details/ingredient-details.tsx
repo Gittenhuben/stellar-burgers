@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { Preloader } from '../ui/preloader';
 import { IngredientDetailsUI } from '../ui/ingredient-details';
+import { IngredientDetailsProps } from './type';
 import { useLocation } from 'react-router';
 import { useSelector } from '../../services/store';
 
-export const IngredientDetails: FC = () => {
+export const IngredientDetails: FC<IngredientDetailsProps> = ({ title=false }) => {
   const location = useLocation();
   const ingredientIdByLocation = location.pathname.split('/').slice(-1)[0];
   const ingredients = useSelector((store) => store.ingredientsSlice.ingredients);
@@ -14,5 +15,5 @@ export const IngredientDetails: FC = () => {
     return <Preloader />;
   }
 
-  return <IngredientDetailsUI ingredientData={ingredientData} />;
+  return <IngredientDetailsUI ingredientData={ingredientData} title={title} />;
 };

@@ -91,26 +91,16 @@ describe('Проверка слайса конструктора', () => {
       constructorItems: {
         ...initialState.constructorItems,
         ingredients: [{...ingredient1, id: "0"}]
-      },  
+      },
+      idCounter: 1
     }
 
     const expectedState2 = {
       ...initialState,
-      constructorItems: {
-        ...initialState.constructorItems,
-        ingredients: [{...ingredient2, id: "0"}]
-      },  
+      idCounter: 1
     }
 
     const expectedState3 = {
-      ...initialState,
-      constructorItems: {
-        ...initialState.constructorItems,
-        ingredients: [{...ingredient2, id: "0"}, {...ingredient1, id: "1"}]
-      },  
-    }
-
-    const expectedState4 = {
       ...initialState,
       constructorItems: {
         ...initialState.constructorItems,
@@ -118,20 +108,27 @@ describe('Проверка слайса конструктора', () => {
       },  
     }
 
+    const expectedState4 = {
+      ...initialState,
+      constructorItems: {
+        ...initialState.constructorItems,
+        ingredients: [{...ingredient1, id: "0"}, {...ingredient2, id: "1"}]
+      },
+      idCounter: 2
+    }
+
     const expectedState5 = {
       ...initialState,
       constructorItems: {
         ...initialState.constructorItems,
-        ingredients: [{...ingredient1, id: "0"}, {...ingredient2, id: "1"}, {...ingredient1, id: "2"}]
-      },  
+        ingredients: [{...ingredient2, id: "1"}, {...ingredient1, id: "0"}]
+      },
+      idCounter: 2
     }
 
     const expectedState6 = {
       ...initialState,
-      constructorItems: {
-        ...initialState.constructorItems,
-        ingredients: [{...ingredient2, id: "0"}, {...ingredient1, id: "1"}, {...ingredient1, id: "2"}]
-      },  
+      idCounter: 2
     }
 
     test('Тест добавления ингредиента в конструктор', () => {
@@ -141,41 +138,33 @@ describe('Проверка слайса конструктора', () => {
 
     test('Тест удаления ингредиента из конструктора', () => {
       const newState = constructorSlice.reducer(expectedState1, {type: 'constructor/removeIngredient', payload: {...ingredient1, id: "0"}});
-      expect(newState).toEqual(initialState);
+      expect(newState).toEqual(expectedState2);
     });
 
     test('Тест добавления булки в конструктор', () => {
       const newState = constructorSlice.reducer(initialState, {type: 'constructor/addIngredient', payload: ingredient0});
-      expect(newState).toEqual(expectedState4);
+      expect(newState).toEqual(expectedState3);
     });
 
     test('Тест удаления булки из конструктора', () => {
-      const newState = constructorSlice.reducer(expectedState4, {type: 'constructor/removeIngredient', payload: ingredient0});
+      const newState = constructorSlice.reducer(expectedState3, {type: 'constructor/removeIngredient', payload: ingredient0});
       expect(newState).toEqual(initialState);
     });
 
     test('Тест добавления нескольких ингредиентов в конструктор', () => {
       const newState = constructorSlice.reducer(initialState, {type: 'constructor/addIngredient', payload: ingredient1});
       const newState2 = constructorSlice.reducer(newState, {type: 'constructor/addIngredient', payload: ingredient2});
-      const newState3 = constructorSlice.reducer(newState2, {type: 'constructor/addIngredient', payload: ingredient1});
-      expect(newState3).toEqual(expectedState5);
-    });
-
-    test('Тест удаления одного из нескольких ингредиентов из конструктора', () => {
-      const newState = constructorSlice.reducer(expectedState5, {type: 'constructor/removeIngredient', payload: {...ingredient1, id: "0"}});
-      expect(newState).toEqual(expectedState3);
-      const newState2 = constructorSlice.reducer(expectedState3, {type: 'constructor/removeIngredient', payload: {...ingredient1, id: "1"}});
-      expect(newState2).toEqual(expectedState2);
+      expect(newState2).toEqual(expectedState4);
     });
 
     test('Тест изменения порядка ингредиентов в конструкторе', () => {
-      const newState = constructorSlice.reducer(expectedState5, {type: 'constructor/moveIngredient', payload: {...ingredient1, id: "0", direction: 1}});
-      expect(newState).toEqual(expectedState6);
+      const newState = constructorSlice.reducer(expectedState4, {type: 'constructor/moveIngredient', payload: {...ingredient1, id: "0", direction: 1}});
+      expect(newState).toEqual(expectedState5);
     });
 
     test('Тест очистки конструктора', () => {
-      const newState = constructorSlice.reducer(expectedState6, {type: 'constructor/reset'});
-      expect(newState).toEqual(initialState);
+      const newState = constructorSlice.reducer(expectedState5, {type: 'constructor/reset'});
+      expect(newState).toEqual(expectedState6);
     });
 
   });

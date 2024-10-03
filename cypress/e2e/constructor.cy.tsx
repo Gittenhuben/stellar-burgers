@@ -14,6 +14,8 @@ describe('Проверка конструктора бургера', () => {
     });
 
     it('Тест добавления ингредиентов в конструктор', () => {
+      cy.get('*[class*="burger-constructor-module__noBuns"]').should('have.length', 3);
+
       cy.get('*[class*="burger-ingredient-module__addButton"]').eq(1).as('bunButton').click();
       cy.get('*[class*="burger-ingredient-module__addButton"]').eq(3).as('mainButton').click();
       cy.get('*[class*="burger-ingredient-module__addButton"]').eq(12).as('sauceButton').click();
@@ -32,6 +34,7 @@ describe('Проверка конструктора бургера', () => {
     });
 
     it('Тест открытия модального окна ингредиента', () => {
+      cy.get('*[class*="modal-module__modal"]').should('not.exist');
       cy.get('*[class*="burger-ingredient-module__article"]').eq(2).as('article').click();
       cy.get('*[class*="modal-module__modal"]').should('exist');
       cy.get('@article').find('*[class*="burger-ingredient-module__text"]').then(buttonName => {
@@ -84,7 +87,7 @@ describe('Проверка конструктора бургера', () => {
       cy.get('*[class*="modal-module__button"]').click();
       cy.get('*[class*="modal-module__modal"]').should('not.exist');
 
-      cy.get('*[class*="burger-constructor-module__noBuns"]').should('have.length', 3); 
+      cy.get('*[class*="burger-constructor-module__noBuns"]').should('have.length', 3);
 
       cy.clearLocalStorage('refreshToken');
       cy.clearCookie('accessToken');

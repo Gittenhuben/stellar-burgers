@@ -5,14 +5,18 @@ import { TIngredient } from '@utils-types';
 import { useLocation } from 'react-router-dom';
 import { AppDispatch, useSelector, useDispatch } from '../../services/store';
 import { getOrdersSingleThunk } from '../../services/slices/orders-single-slice/orders-single-slice';
+import { useParams } from 'react-router';
+import { OrderInfoProps } from './type';
 
-export const OrderInfo: FC = () => {
+export const OrderInfo: FC<OrderInfoProps> = ({title=false}) => {
   const location = useLocation();
   const orderNumberByLocation = Number(location.pathname.split('/').slice(-1)[0]);
   const ingredients = useSelector((store) => store.ingredientsSlice.ingredients);
   const ordersData = useSelector((store) => store.ordersSingleSlice.orders);
   const orderData = ordersData.find(elem => elem.number == orderNumberByLocation);
 
+  const {number} = useParams();
+  
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     dispatch(getOrdersSingleThunk(orderNumberByLocation));
@@ -63,5 +67,5 @@ export const OrderInfo: FC = () => {
     return <Preloader />;
   }
 
-  return <OrderInfoUI orderInfo={orderInfo} />;
+  return <OrderInfoUI orderInfo={orderInfo} title={title ? "#"+number!.padStart(6, '0') : undefined} />;
 };

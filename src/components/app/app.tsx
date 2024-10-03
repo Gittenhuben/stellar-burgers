@@ -41,7 +41,7 @@ export default function App() {
         <Route path="/" element={<ConstructorPage />} />
         <Route path="/feed" >
           <Route index element={<Feed />} />
-          <Route path=":number" element={<OrderInfo />} />
+          <Route path=":number" element={<OrderInfo title={true} />} />
         </Route>
         <Route path="/login" element={<ProtectedRoute loggedPrevent={true}><Login /></ProtectedRoute>} />
         <Route path="/register" element={<ProtectedRoute loggedPrevent={true}><Register /></ProtectedRoute>} />
@@ -51,10 +51,10 @@ export default function App() {
           <Route index element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="orders" >
             <Route index element={<ProtectedRoute><ProfileOrders /></ProtectedRoute>} />
-            <Route path=":number" element={<ProtectedRoute><OrderInfo /></ProtectedRoute>} />
+            <Route path=":number" element={<ProtectedRoute><OrderInfo title={true}/></ProtectedRoute>} />
           </Route>
         </Route>
-        <Route path="/ingredients/:id" element={<IngredientDetails />} />
+        <Route path="/ingredients/:id" element={<IngredientDetails title={true} />} />
       </Routes>
 
       {backgroundLocation &&

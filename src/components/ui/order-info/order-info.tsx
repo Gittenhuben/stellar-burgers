@@ -4,9 +4,15 @@ import styles from './order-info.module.css';
 import { OrderInfoUIProps } from './type';
 import { OrderStatus } from '@components';
 
-export const OrderInfoUI: FC<OrderInfoUIProps> = memo(({ orderInfo }) => (
+export const OrderInfoUI: FC<OrderInfoUIProps> = memo(({ orderInfo, title }) => (
   <div className={styles.wrap}>
-    <h3 className={`text text_type_main-medium  pb-3 pt-10 ${styles.header}`}>
+    {title && (
+        <header className={`${styles.titleHeader}`}>
+          <h3 className={`${styles.title} text text_type_main-large`}>{title}</h3>
+        </header>
+      )
+    }
+    <h3 className={`text text_type_main-medium  pb-3 pt-5 ${styles.header}`}>
       {orderInfo.name}
     </h3>
     <OrderStatus status={orderInfo.status} />

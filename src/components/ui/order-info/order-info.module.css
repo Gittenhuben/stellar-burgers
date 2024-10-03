@@ -1,3 +1,18 @@
+.titleHeader {
+  margin-top: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+}
+
+.title {
+  font-size: 28px;
+  font-family: Iceland;
+  font-style: normal;
+  font-weight: normal;
+}
+
 .wrap {
   margin: 0 auto;
   width: 640px;

@@ -22,6 +22,7 @@ export interface constructorState {
   },
   orderRequest: boolean,
   orderModalData: TOrder | null,
+  idCounter: number
 }
 
 const initialState: constructorState = {
@@ -31,6 +32,7 @@ const initialState: constructorState = {
   },
   orderRequest: false,
   orderModalData: null,
+  idCounter: 0
 }
 
 export const constructorSlice = createSlice({
@@ -41,7 +43,7 @@ export const constructorSlice = createSlice({
       if (action.payload.type == 'bun') {
         state.constructorItems.bun = action.payload;
       } else {
-        state.constructorItems.ingredients.push({...action.payload, id: String(state.constructorItems.ingredients.length)});
+        state.constructorItems.ingredients.push({...action.payload, id: String(state.idCounter++)});
       }
     },
     removeIngredient: (state, action) => {
@@ -50,9 +52,6 @@ export const constructorSlice = createSlice({
       } else {
         state.constructorItems.ingredients = state.constructorItems.ingredients
           .filter(elem => elem.id != action.payload.id)
-          .map(elem => {
-            return {...elem, id: String(Number(elem.id) + (Number(elem.id) > Number(action.payload.id) ? -1 : 0))}
-          })
       }
     },
     reset: (state) => {
@@ -62,20 +61,12 @@ export const constructorSlice = createSlice({
       state.constructorItems.ingredients = [];
     },
     moveIngredient: (state, action) => {
-      if (Number(action.payload.id) + action.payload.direction > -1 &&
-          Number(action.payload.id) + action.payload.direction < state.constructorItems.ingredients.length) {
-        state.constructorItems.ingredients = state.constructorItems.ingredients
-          .map(elem => {
-            if (Number(elem.id) == Number(action.payload.id)) return {...elem, id: 'a'};
-            if (Number(elem.id) == Number(action.payload.id) + action.payload.direction) return {...elem, id: 'b'};
-            return elem;
-          })
-          .map(elem => {
-            if (elem.id == 'a') return {...elem, id: String(Number(action.payload.id) + action.payload.direction)};
-            if (elem.id == 'b') return {...elem, id: String(Number(action.payload.id))};
-            return elem;
-          })
-        state.constructorItems.ingredients.sort((p1, p2) => (Number(p1.id) - Number(p2.id)));
+      const elementIndex = state.constructorItems.ingredients.findIndex(elem => elem.id == action.payload.id);
+      if (elementIndex + action.payload.direction > -1 &&
+          elementIndex + action.payload.direction < state.constructorItems.ingredients.length) {
+        const temp = state.constructorItems.ingredients[elementIndex];
+        state.constructorItems.ingredients[elementIndex] = state.constructorItems.ingredients[elementIndex + action.payload.direction];
+        state.constructorItems.ingredients[elementIndex + action.payload.direction] = temp;
       }
     }
   },

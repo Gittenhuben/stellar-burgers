@@ -23,6 +23,13 @@
   min-height: 64px;
 }
 
+.titleSmall {
+  font-size: 28px;
+  font-family: Iceland;
+  font-style: normal;
+  font-weight: normal;
+}
+
 .button {
   display: flex;
   width: 24px;
